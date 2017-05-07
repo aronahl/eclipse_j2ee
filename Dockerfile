@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get upgrade -fy && \
-    apt-get install -fy python3-pip software-properties-common curl
+    apt-get install -fy python3-pip software-properties-common curl openjdk-8-jdk
 RUN pip3 install bs4
 ADD getUrl.py /usr/local/bin/
 WORKDIR /opt
@@ -12,11 +12,7 @@ RUN /usr/local/bin/getUrl.py | tar -xzv && \
     apt-get install software-properties-common  && \
     add-apt-repository universe  && \
     apt-get update && \
-    apt-get install -fy xpra && \
-    add-apt-repository ppa:webupd8team/java && \
-    apt-get update && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get install -fy oracle-java8-installer
+    apt-get install -fy xpra 
 ADD runit.py /usr/local/bin/
 RUN adduser user && \
     mkdir /opt/workspace && \
