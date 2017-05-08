@@ -26,6 +26,16 @@ if __name__ == "__main__":
         sys.exit(1)
     tailProc = subprocess.Popen(args=("tail", "-f", "/home/user/.xpra/:10.log"))
     eclipseArgs=["/opt/eclipse/eclipse", "-data", "/opt/workspace" ] + sys.argv[1:]
+    while not os.path.exists('/home/user/.xpra/:10.log'):
+        print('Waiting on log file.')
+        time.sleep(1)
+    #waiting for the connection before starting eclipse prevents odd DPI issues.
+    while True:
+        with open('/home/user/.xpra/:10.log', 'r') as f:
+            print('Waiting on TCP Connection.')
+            if "New tcp connection" in f.read():
+                break
+            time.sleep(1)
     eclipseEnv = dict(os.environ)
     eclipseEnv["DISPLAY"] = ":10"
     eclipseProc = subprocess.Popen(args=eclipseArgs, env=eclipseEnv)
