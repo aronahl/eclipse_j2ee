@@ -1,6 +1,10 @@
 # eclipse_j2ee
 A Docker build of __Eclipse for Java 2 EE Developers__ accessible via [xpra](https://xpra.org/).
 
+## Features
+* The build checks the sha512 signature of the eclipse download to ensure the download mirror hasn't been compromised.
+* The eclipse process won't start until an xpra client attaches.  This keeps DPI sane, which is especially important if you have a HighDPI monitor.
+
 ## Recommended Usage
 1. Start the container.
 	```bash
