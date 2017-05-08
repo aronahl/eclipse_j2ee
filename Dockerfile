@@ -17,6 +17,7 @@ ADD runit.py /usr/local/bin/
 RUN adduser user && \
     mkdir /opt/workspace && \
     chown -R user /opt/eclipse /opt/workspace
+RUN apt-get install -fy greybird-gtk-theme
 USER user
 ENTRYPOINT ["/usr/local/bin/runit.py"]
 CMD []
