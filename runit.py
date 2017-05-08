@@ -6,6 +6,8 @@ import os
 import time
 
 if __name__ == "__main__":
+    if os.path.exists('/tmp/.X10-lock'):
+        os.unlink('/tmp/.X10-lock')
     xpraArgs = (
         "xpra",
         "--bind-tcp=0.0.0.0:9999",
