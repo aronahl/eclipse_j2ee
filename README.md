@@ -1,7 +1,7 @@
 # eclipse_j2ee
 A Docker build of __Eclipse for Java 2 EE Developers__ accessible via [xpra](https://xpra.org/).
 
-##Recommended Usage
+## Recommended Usage
 1. Start the container.
 	```bash
 	$ docker run --rm -it -p 127.0.0.1:9999:9999 -v eclipse:/opt/eclipse -v ~/workspace:/opt/workspace aronahl/eclipse_j2ee
