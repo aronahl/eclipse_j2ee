@@ -25,7 +25,9 @@ RUN apt-get update && \
     apt-get autoclean -y && \
     apt-get clean -y && \
     apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    groupadd -g 999 docker && \
+    usermod -aG 999 user
 USER user
-ENTRYPOINT ["/usr/local/bin/runit.py"]
-CMD []
+ENTRYPOINT ["/usr/local/bin/dumb-init"]
+CMD [ "/usr/local/bin/runit.py" ]
