@@ -11,7 +11,7 @@ RUN apt-get update && \
             openjdk-8-source \
             software-properties-common \
             greybird-gtk-theme && \
-    pip3 install bs4 && \
+    pip3 install bs4 dumb-init && \
     /usr/local/bin/getUrl.py | tar -xzv && \
     curl http://winswitch.org/gpg.asc | apt-key add - && \
     echo "deb http://winswitch.org/ xenial main" > /etc/apt/sources.list.d/winswitch.list && \
