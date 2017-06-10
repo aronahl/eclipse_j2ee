@@ -29,5 +29,5 @@ RUN apt-get update && \
     groupadd -g 999 docker && \
     usermod -aG 999 user
 USER user
-ENTRYPOINT ["/usr/local/bin/dumb-init"]
+ENTRYPOINT ["/usr/local/bin/dumb-init", "--"]
 CMD [ "/usr/local/bin/runit.py" ]
