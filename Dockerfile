@@ -7,6 +7,7 @@ RUN apt-get update && \
     apt-get install -fy python3-pip \
             software-properties-common \
             curl \
+            libwebkitgtk-3.0-0 \
             openjdk-8-jdk \
             openjdk-8-source \
             software-properties-common \
