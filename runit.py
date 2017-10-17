@@ -9,7 +9,7 @@ if __name__ == "__main__":
     if os.path.exists('/tmp/.X10-lock'):
         os.unlink('/tmp/.X10-lock')
     if os.path.exists("/home/user/.xpra/:10.log"):
-        os.unlink("/home/user/.xpra/:10.log"):
+        os.unlink("/home/user/.xpra/:10.log")
     xpraArgs = (
         "xpra",
         "--bind-tcp=0.0.0.0:9999",
