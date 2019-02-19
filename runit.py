@@ -8,8 +8,8 @@ import time
 if __name__ == "__main__":
     if os.path.exists('/tmp/.X10-lock'):
         os.unlink('/tmp/.X10-lock')
-    if os.path.exists("/home/user/.xpra/:10.log"):
-        os.unlink("/home/user/.xpra/:10.log")
+    if os.path.exists("/tmp/:10.log"):
+        os.unlink("/tmp/:10.log")
     http = int(os.getenv("HTTP", "0"))
     xpraArgs = [
         "xpra",
@@ -22,24 +22,28 @@ if __name__ == "__main__":
     subprocess.check_call(args=xpraArgs)
     logFound = False
     for _ in range(30):
-        if os.path.exists("/home/user/.xpra/:10.log"):
+        if os.path.exists("/tmp/:10.log"):
             logFound = True
             break
         time.sleep(1)
     if not logFound:
         print("Startup failed without a log file")
         sys.exit(1)
-    tailProc = subprocess.Popen(args=("tail", "-f", "/home/user/.xpra/:10.log"))
+    tailProc = subprocess.Popen(args=("tail", "-f", "/tmp/:10.log"))
     eclipseArgs=["/opt/eclipse/eclipse", "-data", "/opt/workspace" ] + sys.argv[1:]
-    while not os.path.exists('/home/user/.xpra/:10.log'):
+    while not os.path.exists('/tmp/:10.log'):
         print('Waiting on log file.')
         time.sleep(1)
     #waiting for the connection before starting eclipse prevents odd DPI issues.
+    offset = 0
     while True:
-        with open('/home/user/.xpra/:10.log', 'r') as f:
+        with open('/tmp/:10.log', 'r') as f:
             print('Waiting on TCP Connection.')
-            if "New tcp connection" in f.read():
+            buff = f.read()
+            if "New tcp connection" in buff:
                 break
+            print(buff[offset:])
+            offset=len(buff)
             time.sleep(1)
     eclipseEnv = dict(os.environ)
     eclipseEnv["DISPLAY"] = ":10"

@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 ADD ["getUrl.py", "runit.py", "/usr/local/bin/"]
 WORKDIR /opt
@@ -15,7 +15,7 @@ RUN apt-get update && \
     pip3 install bs4 dumb-init && \
     /usr/local/bin/getUrl.py | tar -xzv && \
     curl http://winswitch.org/gpg.asc | apt-key add - && \
-    echo "deb http://winswitch.org/ xenial main" > /etc/apt/sources.list.d/winswitch.list && \
+    echo "deb http://winswitch.org/ bionic main" > /etc/apt/sources.list.d/winswitch.list && \
     add-apt-repository universe  && \
     apt-get update && \
     apt-get install -fy xpra && \
