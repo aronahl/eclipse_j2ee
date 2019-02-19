@@ -9,9 +9,10 @@ import hashlib
 if __name__ == "__main__":
     with urllib.request.urlopen('https://www.eclipse.org/downloads/eclipse-packages/?osType=linux&release=undefined') as f:
         page = BeautifulSoup(f.read(), 'html.parser')
-        a = page.find(lambda tag: tag.name == "a" and tag.string is not None and tag.string.strip() == "Eclipse IDE for Java EE Developers")
-        b64 = a.parent.parent.parent.find(lambda tag: tag.string is not None and tag.string.strip().lower() == '64 bit').find(**{'class':'downloadLink'})['href']
-        b64 = 'https://www.eclipse.org' + b64
+        a = page.find(lambda tag: tag.name == "a" and tag.string is not None and tag.string.strip() == "Eclipse IDE for Enterprise Java Developers")
+        b64 = a.parent.parent.parent.find(lambda tag: tag.name == "span" and tag["class"] == ["linux"]).find("a")["href"]
+        b64 = 'https:' + b64
+        print(b64)
     with urllib.request.urlopen(b64) as f:
         page = BeautifulSoup(f.read(), 'html.parser')
         finalLink = page.find(lambda tag: tag.name == "a" and tag.string is not None and tag.string.strip().lower() == "direct link to file")["href"]
