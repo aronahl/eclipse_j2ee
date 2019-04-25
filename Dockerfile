@@ -1,5 +1,6 @@
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
+ADD ["getUrl.py", "runit.py", "/usr/local/bin/"]
 WORKDIR /opt
 RUN apt-get update && \
     apt-get upgrade -fy && \
@@ -11,9 +12,8 @@ RUN apt-get update && \
             openjdk-8-source \
             software-properties-common \
             greybird-gtk-theme && \
-    pip3 install bs4 dumb-init
-ADD ["getUrl.py", "runit.py", "/usr/local/bin/"]
-RUN /usr/local/bin/getUrl.py | tar -xzv && \
+    pip3 install bs4 dumb-init && \
+    /usr/local/bin/getUrl.py | tar -xzv && \
     curl http://winswitch.org/gpg.asc | apt-key add - && \
     echo "deb http://winswitch.org/ bionic main" > /etc/apt/sources.list.d/winswitch.list && \
     add-apt-repository universe  && \
